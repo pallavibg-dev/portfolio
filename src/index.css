@@ -429,11 +429,156 @@ button, input, textarea {
 .hero-content {
   position: relative;
   z-index: 3;
+  width: 100%;
+  padding: 0 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0;
-  padding: 0 16px;
+}
+
+.hero-text-centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* Split layout: Glass Card left + Profile details right */
+.hero-layout-split {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+@media (max-width: 960px) {
+  .hero-layout-split {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 36px;
+  }
+}
+
+/* Glassmorphic card matching user's exact image */
+.glass-hero-card {
+  width: 100%;
+  max-width: 420px;
+  min-height: 440px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 28px;
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeSlideUp 0.8s ease both;
+  flex-shrink: 0;
+}
+
+.glass-hero-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.45);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.glass-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.glass-card-badge {
+  font-family: var(--font-control);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: rgba(255, 255, 255, 0.88);
+  text-transform: uppercase;
+}
+
+.glass-card-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.95);
+}
+
+.glass-card-body {
+  margin: 36px 0;
+}
+
+.glass-card-title {
+  font-family: var(--font-control-tnt);
+  font-size: clamp(32px, 3.6vw, 42px);
+  line-height: 1.12;
+  font-weight: 500;
+  color: #ffffff;
+  letter-spacing: -0.8px;
+  margin-bottom: 18px;
+}
+
+.glass-card-sub {
+  font-family: var(--font-control);
+  font-size: 16px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.glass-card-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.glass-card-dot-small {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+}
+
+.glass-card-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+  transition: background 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+}
+
+.glass-card-arrow:hover {
+  background: rgba(255, 255, 255, 0.28);
+  border-color: rgba(255, 255, 255, 0.6);
+  transform: translateX(3px);
+}
+
+.hero-text-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1;
+}
+
+@media (max-width: 960px) {
+  .hero-text-side {
+    align-items: center;
+    text-align: center;
+  }
 }
 
 /* Eyebrow badge */
@@ -470,20 +615,32 @@ button, input, textarea {
   50%       { opacity: 0.5; transform: scale(0.7); }
 }
 
-/* Apple-style large headline */
+/* Apple-style headline with full animated gradient */
 .hero-apple-headline {
   font-family: var(--font-control-tnt);
-  font-size: clamp(28px, 4.5vw, 52px);
-  line-height: 1.1;
+  font-size: clamp(24px, 3.8vw, 44px);
+  line-height: 1.15;
   font-weight: 700;
   letter-spacing: -1px;
-  color: #ffffff;
   text-align: center;
   margin-bottom: 20px;
-  animation: fadeSlideUp 0.9s ease 0.1s both;
+  background: linear-gradient(
+    90deg,
+    #ffffff 0%,
+    #38bdf8 20%,
+    #a855f7 40%,
+    #ec4899 60%,
+    #10b981 80%,
+    #ffffff 100%
+  );
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: heroGradientFlow 4s linear infinite, fadeSlideUp 0.9s ease 0.1s both;
 }
 
-/* The animated gradient word */
+/* The animated gradient word highlight */
 .hero-gradient-word {
   background: linear-gradient(
     90deg,
@@ -659,31 +816,31 @@ button, input, textarea {
 
 .display-headline {
   font-family: var(--font-control-compressed);
-  font-size: clamp(40px, 8vw, 100px);
-  line-height: 1;
+  font-size: clamp(20px, 3.5vw, 34px);
+  line-height: 1.1;
   font-weight: var(--font-weight-black);
   text-transform: uppercase;
   white-space: nowrap;
-  letter-spacing: -0.03em;
+  letter-spacing: 3px;
   text-align: center;
 }
 
-/* Apple-style animated gradient text */
+/* Apple-style moving gradient text */
 .gradient-headline {
   background: linear-gradient(
     90deg,
-    #a78bfa 0%,
-    #60a5fa 20%,
-    #f0abfc 40%,
-    #818cf8 60%,
-    #a78bfa 80%,
-    #60a5fa 100%
+    #38bdf8 0%,
+    #a855f7 20%,
+    #ec4899 40%,
+    #f59e0b 60%,
+    #10b981 80%,
+    #38bdf8 100%
   );
-  background-size: 200% auto;
+  background-size: 300% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: gradientShift 4s linear infinite;
+  animation: gradientShift 3.5s linear infinite;
 }
 
 @keyframes gradientShift {

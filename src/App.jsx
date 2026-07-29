@@ -1,21 +1,23 @@
 import { useState } from 'react';
+import heroBgImage from './assets/hero-bengaluru-sketch.png';
+import lalbaghImg from './assets/lalbagh_glasshouse.png';
 
 // Custom inline SVG icons for technologies to avoid external dependencies
 const Icons = {
   java: (
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#EA2D2E">
       <path d="M2 19.5c0 .83.67 1.5 1.5 1.5h17c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5h-17c-.83 0-1.5.67-1.5 1.5zm18.5-8.5H19v-2h1.5c.83 0 1.5-.67 1.5-1.5V5c0-.83-.67-1.5-1.5-1.5H19v-2h-2v17c0 1.1-.9 2-2 2H5c-1.1 0-2-.9-2-2V1.5H1v2h2V5c0 .83.67 1.5 1.5 1.5H6v2H4.5C3.67 8.5 3 9.17 3 10v4c0 .83.67 1.5 1.5 1.5H6v2h11v-2h1.5c.83 0 1.5-.67 1.5-1.5v-3z" />
     </svg>
   ),
   spring: (
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path d="M20.59 3.1c-.42 1.74-1.44 3.3-2.77 4.46C16.07 3.25 12.43.5 8.18.5 3.77.5.25 4.02.25 8.43c0 2.94 1.57 5.52 3.93 6.97-.34.68-.56 1.43-.63 2.22-.43 4.26 3.15 7.44 6.93 7.44a7.5 7.5 0 0 0 7.36-6.13c.2-1.05.13-2.13-.2-3.12 1.47-.62 2.73-1.67 3.57-3.02.98-1.57 1.3-3.44.84-5.2a.48.48 0 0 0-.58-.35.49.49 0 0 0-.88.86zM12 17a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" />
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#6DB33F">
+      <path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zm-1.07 18.06c-3.792-.41-6.732-3.606-6.732-7.46 0-1.748.59-3.36 1.583-4.653l2.84 2.84a4.137 4.137 0 0 0-.256 1.813c0 2.296 1.862 4.158 4.158 4.158.653 0 1.265-.152 1.813-.426l2.84 2.84c-1.293.993-2.905 1.583-4.653 1.583-.54 0-1.066-.057-1.593-.17zm8.172-3.517l-2.84-2.84a4.137 4.137 0 0 0 .256-1.813c0-2.296-1.862-4.158-4.158-4.158a4.12 4.12 0 0 0-1.813.426l-2.84-2.84c1.293-.993 2.905-1.583 4.653-1.583 4.142 0 7.5 3.358 7.5 7.5 0 1.748-.59 3.36-1.583 4.653z" />
     </svg>
   ),
   react: (
-    <svg viewBox="-11.5 -10.23174 23 20.46348" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="-11.5 -10.23174 23 20.46348" xmlns="http://www.w3.org/2000/svg" fill="#61DAFB">
       <circle cx="0" cy="0" r="2.05" />
-      <g stroke="currentColor" strokeWidth="1" fill="none">
+      <g stroke="#61DAFB" strokeWidth="1" fill="none">
         <ellipse rx="11" ry="4.2" />
         <ellipse rx="11" ry="4.2" transform="rotate(60)" />
         <ellipse rx="11" ry="4.2" transform="rotate(120)" />
@@ -23,22 +25,22 @@ const Icons = {
     </svg>
   ),
   database: (
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#4479A1">
       <path d="M12 2C6.48 2 2 4 2 6.5v11C2 20 6.48 22 12 22s10-2 10-3.5v-11C22 4 17.52 2 12 2zm0 2c4.82 0 8 1.61 8 2.5S16.82 9 12 9s-8-1.61-8-2.5S7.18 4 12 4zm8 7.5c0 .89-3.18 2.5-8 2.5s-8-1.61-8-2.5v-3c1.78 1 4.73 1.5 8 1.5s6.22-.5 8-1.5v3zm0 5c0 .89-3.18 2.5-8 2.5s-8-1.61-8-2.5v-3c1.78 1 4.73 1.5 8 1.5s6.22-.5 8-1.5v3z" />
     </svg>
   ),
   docker: (
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#2496ED">
       <path d="M13.983 8.871h-1.996V10.87h1.996V8.871zM11.49 8.871H9.492V10.87H11.49V8.871zM8.995 8.871H6.998V10.87h1.997V8.871zM6.5 8.871H4.502V10.87H6.5V8.871zm5.992-2.99h-1.996v1.999h1.996V5.881zm-2.493 0H8.003v1.999h1.997V5.881zm-2.497 0H5.006v1.999h1.997V5.881zm4.99 3h-1.997v1.999h1.997V8.881zm3.985-6h-1.996v1.999h1.996V2.881zm-.008 3h-1.996v1.999h1.996V5.881zM23.99 12.13a11.442 11.442 0 0 1-2.99 1c-.88.19-1.98.09-2.98-.1a9.036 9.036 0 0 1-5.99-5.9c-.1-.2-.1-.5-.1-.7v-.9a1.003 1.003 0 0 0-1-1H2a1.003 1.003 0 0 0-1 1v8.5c0 3.3 2.7 6 6 6h11c3 0 5.6-2.2 5.9-5.2l.09-.6z" />
     </svg>
   ),
   kubernetes: (
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#326CE5">
       <path d="M12.002 2L2.148 5.6v12.8L12.002 22l9.854-3.6V5.6L12.002 2zm7.854 14.54l-7.854 2.85v-5.23l4.577-1.66 3.277 4.04zm0-8.81l-3.277 4.04-4.577-1.66V4.87l7.854 2.86zm-15.708 0l7.854-2.86v5.22L7.575 9.55 4.298 7.73zm0 8.81l3.277-4.04 4.577 1.66v5.23l-7.854-2.85z" />
     </svg>
   ),
   code: (
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#ffffff">
       <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z" />
     </svg>
   )
@@ -124,7 +126,7 @@ function App() {
       <section 
         className="full-bleed-photo" 
         id="top" 
-        style={{ backgroundImage: 'url(/hero-bengaluru-sketch.png)' }}
+        style={{ backgroundImage: `url(${heroBgImage})` }}
       >
         {/* Dot-connector sketch animation overlay */}
         <svg className="sketch-overlay" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -150,33 +152,35 @@ function App() {
         </svg>
 
         <div className="container hero-content">
-          {/* Eyebrow badge */}
-          <div className="hero-badge" id="hero-badge">
-            <span className="hero-badge-dot"></span>
-            Java Fullstack Developer · Bengaluru, IN
-          </div>
+          <div className="hero-text-centered">
+            {/* Eyebrow badge */}
+            <div className="hero-badge" id="hero-badge">
+              <span className="hero-badge-dot"></span>
+              Java Fullstack Developer · Bengaluru, IN
+            </div>
 
-          {/* Apple-style gradient headline */}
-          <h1 className="hero-apple-headline" id="hero-title">
-            Building things<br />
-            <span className="hero-gradient-word">the world</span> uses.
-          </h1>
+            {/* Apple-style gradient headline */}
+            <h1 className="hero-apple-headline" id="hero-title">
+              Building systems<br />
+              <span className="hero-gradient-word">the world</span> relies on.
+            </h1>
 
-          {/* Sub description */}
-          <p className="hero-sub" id="hero-sub">
-            Spring Boot microservices. React interfaces. Cloud-ready systems.<br />
-            Crafted with precision from Bengaluru.
-          </p>
+            {/* Sub description */}
+            <p className="hero-sub" id="hero-sub">
+              Spring Boot microservices. React interfaces. Cloud-ready systems.<br />
+              Crafted with precision & scale from Bengaluru.
+            </p>
 
-          {/* CTA buttons */}
-          <div className="hero-cta-row">
-            <a href="#projects" className="hero-btn-primary" id="hero-btn-work">
-              View My Work
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-            <a href="#contact" className="hero-btn-ghost" id="hero-btn-talk">
-              Let's Talk
-            </a>
+            {/* CTA buttons */}
+            <div className="hero-cta-row">
+              <a href="#projects" className="hero-btn-primary" id="hero-btn-work">
+                View My Work
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+              <a href="#contact" className="hero-btn-ghost" id="hero-btn-talk">
+                Let's Talk
+              </a>
+            </div>
           </div>
 
           {/* Scroll indicator */}
@@ -386,7 +390,7 @@ function App() {
           </div>
           <div>
             <div className="about-image-card">
-              <img src="/lalbagh_glasshouse.png" alt="Vintage Lalbagh Glass House, Bengaluru" />
+              <img src={lalbaghImg} alt="Vintage Lalbagh Glass House, Bengaluru" />
               <div className="about-location-badge" id="bengaluru-badge">
                 <span className="dot"></span>
                 Bengaluru, IN
